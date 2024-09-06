@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ultra-Fast Luxury Countdown Timer</title>
+    <style>
+      @import url("https://fonts.cdnfonts.com/css/garet");
+
+      body {
+        font-family: Garet, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background-color: #302d3a;
+        text-align: center;
+      }
+
+      .frame {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 300;
+        margin: 0 0 20px;
+        background: linear-gradient(90deg, #bb984d, #f5eb9b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      #countdown {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .countdown-row {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .countdown-item {
+        opacity: 0;
+        transform: scale(0.5);
+        padding: 10px;
+        border-radius: 10px;
+        border: 2px solid #bb984d;
+        backdrop-filter: blur(5px);
+        color: #bb984d;
+        background: rgba(255, 255, 255, 0.1);
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+
+      .countdown-item span {
+        font-size: 2rem;
+        color: #bb984d;
+        display: block;
+      }
+
+      .countdown-item .label {
+        font-size: 1rem;
+        margin-top: 5px;
+      }
+
+      @media (max-width: 480px) {
+        h2 {
+          font-size: 1.8rem;
+        }
+
+        .countdown-item {
+          padding: 8px;
+        }
+
+        .countdown-item span {
+          font-size: 1.6rem;
+        }
+
+        .countdown-item .label {
+          font-size: 0.9rem;
+        }
+      }
+
+      /* Pop-up animation for countdown items */
+      .pop-in {
+        opacity: 1;
+        transform: scale(1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <div id="countdown">
+        <div class="countdown-row">
+          <div class="countdown-item" id="days-container">
+            <span id="days">01</span>
+            <div class="label">Days</div>
+          </div>
+          <div class="countdown-item" id="hours-container">
+            <span id="hours">02</span>
+            <div class="label">Hours</div>
+          </div>
+        </div>
+        <div class="countdown-row">
+          <div class="countdown-item" id="minutes-container">
+            <span id="minutes">30</span>
+            <div class="label">Minutes</div>
+          </div>
+          <div class="countdown-item" id="seconds-container">
+            <span id="seconds">60</span>
+            <div class="label">Seconds</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Function to trigger pop-in animation with a delay
+      function revealItem(elementId, delay) {
+        setTimeout(() => {
+          document.getElementById(elementId).classList.add("pop-in");
+        }, delay);
+      }
+
+      // Apply pop-in animation to each item with a delay
+      revealItem("days-container", 500); // Day appears first
+      revealItem("hours-container", 1500); // Hour appears second
+      revealItem("minutes-container", 2500); // Minute appears third
+      revealItem("seconds-container", 3500); // Second appears last
+
+      // Initialize the starting values
+      let seconds = 60;
+
+      // Countdown functionality
+      let countdownFunction = setInterval(function () {
+        // Decrease seconds and reset if it reaches 0
+        seconds -= 1;
+        if (seconds < 0) {
+          seconds = 60;
+        }
+
+        // Keep day, hour, and minute static for video recording
+        document.getElementById("days").innerHTML = "01";
+        document.getElementById("hours").innerHTML = "02";
+        document.getElementById("minutes").innerHTML = "30";
+
+        // Update only the seconds
+        document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, "0");
+      }, 1000); // Update every second
+    </script>
+  </body>
+</html>
