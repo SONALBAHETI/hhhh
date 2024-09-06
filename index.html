@@ -145,21 +145,30 @@
 
       // Initialize the starting values
       let seconds = 60;
+      let minutes = 30;
 
       // Countdown functionality
       let countdownFunction = setInterval(function () {
-        // Decrease seconds and reset if it reaches 0
+        // Decrease seconds
         seconds -= 1;
+
+        // If seconds reach 0, decrease minutes and reset seconds
         if (seconds < 0) {
-          seconds = 60;
+          seconds = 59;
+          minutes -= 1;
         }
 
-        // Keep day, hour, and minute static for video recording
+        // If minutes reach 0, reset to 30 for the video
+        if (minutes < 0) {
+          minutes = 30;
+        }
+
+        // Keep day and hour static for video recording
         document.getElementById("days").innerHTML = "01";
         document.getElementById("hours").innerHTML = "02";
-        document.getElementById("minutes").innerHTML = "30";
 
-        // Update only the seconds
+        // Update minutes and seconds
+        document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, "0");
         document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, "0");
       }, 1000); // Update every second
     </script>
